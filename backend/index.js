@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+app.use("/api/auth", authRouter)
 
 // MongoDB connection
 const mongoURL = process.env.MONGO_URL;
@@ -20,5 +21,5 @@ mongoose.connect(mongoURL, {
 .then(() => console.log("MongoDB connected ✅"))
 .catch(err => console.error("MongoDB connection error ❌", err));
 
-app.listen(PORT, () => 
+app.listen(PORT, () =>
     console.log(`Server running on http://localhost:${PORT}`));
