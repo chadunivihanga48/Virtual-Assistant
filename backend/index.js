@@ -7,6 +7,8 @@ import authRouter from './routes/auth.routes.js';
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+
+
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/auth", authRouter);

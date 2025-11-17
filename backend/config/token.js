@@ -6,10 +6,10 @@ const genToken = async (userId) => {
             {userId}, 
             process.env.JWT_SECRET, 
             {expiresIn: "10d"}
-        );
+        )
         return token
     }catch(error){
         console.log(error);
     }
 }
-export default genToken
+export default genToken;

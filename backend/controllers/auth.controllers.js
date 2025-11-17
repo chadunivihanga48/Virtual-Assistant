@@ -1,6 +1,6 @@
 import User from "../models/user.model.js"
 import bcrypt from "bcryptjs";
-import genToken from "../utils/genToken.js";
+
 
 export const signUp = async (req, res) =>{
     try{
@@ -21,7 +21,7 @@ export const signUp = async (req, res) =>{
             name, password: hashedPassword, email
         })
 
-        const token = await genToken(user._Id)
+        const token = await genToken(user._id)
         res.cookie("token", token, {
             httpOnly: true,
             maxAge: 7*24*60*60*1000, 
