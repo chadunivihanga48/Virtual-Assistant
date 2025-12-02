@@ -17,6 +17,11 @@ const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.get('/', (req, res) => {
+  res.send('Virtual Assistant Backend is running!');
+});
+
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 
