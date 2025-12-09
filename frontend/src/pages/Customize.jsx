@@ -1,4 +1,5 @@
 import React, { useRef, useState, useContext} from 'react'
+import { useNavigate } from 'react-router-dom'
 import { userDataContext } from "../context/userContext"
 import Card from '../components/Card.jsx'
 import image1 from "../assets/image1.png";
@@ -13,6 +14,7 @@ import { RiImageAddLine } from "react-icons/ri";
 function Customize() {
   const {serverUrl, userData, setUserData, backendImage, setBackendImage, frontendImage, setFrontendImage, selectedImage, setSelectedImage } = useContext(userDataContext)
   const inputImage = useRef()
+  const navigate = useNavigate();
   const handleImage = (e)=>{
     const file=e.target.files[0]
     setBackendImage(file)
@@ -38,7 +40,7 @@ function Customize() {
       { frontendImage && <img src={frontendImage} className = 'h-full object-cover'/>}
     </div>
     <input type= "file" accept='image/*' ref={inputImage} hidden onChange={handleImage}/>
-    {selectedImage && <button className = 'min-w-[150px] h-[50px] mt-5 text-black font-semibold bg-white rounded-full text-[19px]'>Next</button>}
+    {selectedImage && <button className = 'min-w-[150px] h-[50px] mt-5 text-black font-semibold cursor-pointer bg-white rounded-full text-[19px]' onClick={()=> navigate("/customize2")}>Next</button>}
    
       </div>
       
