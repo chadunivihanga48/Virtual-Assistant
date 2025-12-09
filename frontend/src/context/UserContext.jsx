@@ -27,13 +27,17 @@ function UserContext({ children }) {
     handleCurrentUser();
     // eslint-disable-next-line
   }, []);
-
+const value ={
+  serverUrl, userData, setUserData, backendImage, setBackendImage, frontendImage, setFrontendImage, selectedImage, setSelectedImage
+}
 
 
   return (
+    <div>
     <userDataContext.Provider value={{ serverUrl, userData, setUserData, backendImage, setBackendImage, frontendImage, setFrontendImage, selectedImage, setSelectedImage }}>
       {children}
     </userDataContext.Provider>
+    </div>
   );
 }
 
