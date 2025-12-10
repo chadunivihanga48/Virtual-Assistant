@@ -10,6 +10,7 @@ function UserContext({ children }) {
   const [frontendImage, setFrontendImage] =useState(null)
   const [backendImage, setBackendImage] =useState(null)
   const [selectedImage, setSelectedImage] = useState(null)
+
   const handleCurrentUser = async () => {
     try {
       const result = await axios.get(`${serverUrl}/api/user/current`, { withCredentials: true });
@@ -28,16 +29,16 @@ function UserContext({ children }) {
     // eslint-disable-next-line
   }, []);
 const value ={
-  serverUrl, userData, setUserData, backendImage, setBackendImage, frontendImage, setFrontendImage, selectedImage, setSelectedImage
+  serverUrl, userData, setUserData, loading, backendImage, setBackendImage, frontendImage, setFrontendImage, selectedImage, setSelectedImage
 }
 
 
   return (
-    <div>
-    <userDataContext.Provider value={{ serverUrl, userData, setUserData, backendImage, setBackendImage, frontendImage, setFrontendImage, selectedImage, setSelectedImage }}>
+    
+    <userDataContext.Provider value={{ serverUrl, userData, setUserData, loading, backendImage, setBackendImage, frontendImage, setFrontendImage, selectedImage, setSelectedImage }}>
       {children}
     </userDataContext.Provider>
-    </div>
+    
   );
 }
 
