@@ -20,7 +20,7 @@ try{
     let result = await axios.post(`${serverUrl}/api/auth/signup`, {
         name, email, password
     }, {withCredentials: true})
-    setUserData(result.data)
+    setUserData(result.data.user)
     setLoading(false)
     navigate("/customize")
 }catch(error){

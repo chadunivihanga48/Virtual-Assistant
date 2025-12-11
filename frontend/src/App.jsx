@@ -11,16 +11,19 @@ import Home from './pages/Home.jsx';
 import { userDataContext } from './context/userContext.jsx';
 
 function App() {
-  const {userData, setUserData} = useContext(userDataContext)
+  const {userData, loading, setUserData} = useContext(userDataContext)
 
+  if(loading){
+    return <p>Loading...</p>
+  }
   return (
     <>
     <Routes>
     <Route path="/" element={<Home />} />
     <Route path='/signup' element={!userData?<SignUp />: <Navigate to = {"/"} />}/>
-     <Route path='/signin' element={!userData?<SignIn />: <Navigate to = {"/signin"}/> } />
-    <Route path='/customize' element={userData?<Customize />: <Navigate to = {"/customize"} />} />
-    <Route path='/customize2' element={!userData?<Customize2 />: <Navigate to = {"/customize2"} />} />
+     <Route path='/signin' element={!userData?<SignIn />: <Navigate to = {"/"}/> } />
+    <Route path='/customize' element={userData?<Customize />: <Navigate to = {"/signin"} />} />
+    <Route path='/customize2' element={userData?<Customize2 />: <Navigate to = {"/signin"} />} />
      
     </Routes>
     </>
