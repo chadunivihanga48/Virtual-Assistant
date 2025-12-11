@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userDataContext } from '../context/userContext';
 import { MdKeyboardBackspace } from "react-icons/md";
+import axios from 'axios'
 
 function Customize2() {
     const {userData, backendImage, selectedImage} = useContext(userDataContext)
@@ -18,7 +19,7 @@ function Customize2() {
           }else{
             formData.append("imageUrl", selectedImage)
           }
-          const result = await axios.post(`${serverUrl}/api/user/update`, formData, {wirthCredentials: true})
+          const result = await axios.post(`${serverUrl}/api/user/update`, formData, {withCredentials: true})
           setLoading(false)
           console.log(result.data)
           setUserData(result.data)

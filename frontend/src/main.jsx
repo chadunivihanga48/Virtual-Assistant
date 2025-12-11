@@ -6,12 +6,12 @@ import {BrowserRouter} from "react-router-dom";
 import UserContext from './context/userContext.jsx';
 
 createRoot(document.getElementById('root')).render(
-  <ReactStrictMode>
+  
   <BrowserRouter>
   <UserContext>
     <App />
   </UserContext>
   </BrowserRouter>
-  </ReactStrictMode>
+  
   
 )
