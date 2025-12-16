@@ -1,6 +1,6 @@
 import User from "../models/user.model.js"
 import bcrypt from "bcryptjs";
-
+import genToken from "../config/token.js"
 
 export const signUp = async (req, res) =>{
     try{
@@ -60,7 +60,7 @@ export const login = async (req, res) =>{
             sameSite: "strict",
             secure: false
         })
-        return res.status(201).json(user)
+        return res.status(201).json({user, message: "Login successful"})
     }catch(error){
         return res.status(500).json({message:`sign up error ${error}`
         })
@@ -70,7 +70,7 @@ export const login = async (req, res) =>{
 export const Logout = async (req, res) => {
     try{
         res.clearCookie("token")
-        return res.status(200).json({message: "logout successfully"})
+        return res.status(200).json({ user, message: "signup successfully"})
     }catch(error){
         return res.status(500).json({message:`logout error ${error}`
         })

@@ -6,6 +6,7 @@ import axios from 'axios'
 
 function Customize2() {
     const {userData, backendImage, selectedImage} = useContext(userDataContext)
+    const { serverUrl, setUserData } = useContext(userDataContext)
     const [assistantName, setAssistantName] = useState(userData?.assistantName || "")
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()

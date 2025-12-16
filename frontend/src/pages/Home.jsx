@@ -16,7 +16,7 @@ function Home() {
         navigate("/signup")
         console.log(error)
     }
-  }
+  }  
   return (
     <div className='w-full h-[100vh] bg-gradient-to-t from-[black] to-[#02023d] flex justify-center items-center flex-col p-[20px] gap-[10px]'>
        <button className = 'min-w-[150px] h-[50px] bg-white absolute top-[40px] right-[70px] rounded-full text-black text-[19px] mt-5' onClick={handleLogout}>Log Out</button> 

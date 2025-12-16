@@ -42,7 +42,7 @@ function Customize() {
       { frontendImage && <img src={frontendImage} className = 'h-full object-cover'/>}
     </div>
     <input type= "file" accept='image/*' ref={inputImage} hidden onChange={handleImage}/>
-    {selectedImage && <button className = 'min-w-[150px] h-[50px] mt-5 text-black font-semibold cursor-pointer bg-white rounded-full text-[19px]' onClick={()=> navigate("/customize2")}>Next</button>}
+    {(selectedImage || backendImage || frontendImage ) && <button className = 'min-w-[150px] h-[50px] mt-5 text-black font-semibold cursor-pointer bg-white rounded-full text-[19px]' onClick={()=> navigate("/customize2")}>Next</button>}
    
       </div>
       
