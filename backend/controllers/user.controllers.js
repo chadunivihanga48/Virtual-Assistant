@@ -1,4 +1,5 @@
 import User from "../models/user.model.js"
+import uploadOnCloudinary from "../config/cloudinary.js"
 
 export const getCurrentUser = async(req, res) => {
     try{
@@ -25,10 +26,10 @@ export const updateAssistant = async(req, res)=> {
             assistantImage = imageUrl
         }
 
-        const User = await User.findByIdAndUpdate(req.userId, {
+        const updatedUser = await User.findByIdAndUpdate(req.userId, {
             assistantName, assistantImage
         }, {new: true}).select("-password")
-        return res.status(200).json(user)
+        return res.status(200).json(updatedUser)
     }catch(error){
         return res.status(400).json({message: "update Assistant error"})
     }

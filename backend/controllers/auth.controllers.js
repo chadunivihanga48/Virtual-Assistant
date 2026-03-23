@@ -21,15 +21,7 @@ export const signUp = async (req, res) =>{
             name, password: hashedPassword, email
         })
 
-        const token = await genToken(user._id)
-        res.cookie("token", token, {
-            httpOnly: true,
-            maxAge: 7*24*60*60*1000, 
-            sameSite: "strict",
-            secure: false
-        })
-
-        return res.status(200).json(user)
+        return res.status(200).json({ message: "Signup successful", user })
     }catch(error){
         return res.status(500).json({message:`login error ${error}`
         })
@@ -60,7 +52,7 @@ export const login = async (req, res) =>{
             sameSite: "strict",
             secure: false
         })
-        return res.status(201).json({user, message: "Login successful"})
+        return res.status(200).json(user)
     }catch(error){
         return res.status(500).json({message:`sign up error ${error}`
         })
@@ -70,7 +62,7 @@ export const login = async (req, res) =>{
 export const Logout = async (req, res) => {
     try{
         res.clearCookie("token")
-        return res.status(200).json({ user, message: "signup successfully"})
+        return res.status(200).json({ message: "Logout successful"})
     }catch(error){
         return res.status(500).json({message:`logout error ${error}`
         })

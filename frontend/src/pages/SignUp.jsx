@@ -20,9 +20,8 @@ try{
     let result = await axios.post(`${serverUrl}/api/auth/signup`, {
         name, email, password
     }, {withCredentials: true})
-    setUserData(result.data.user)
     setLoading(false)
-    navigate("/customize")
+    navigate("/signin")
 }catch(error){
     console.log(error)
     setUserData(null)
