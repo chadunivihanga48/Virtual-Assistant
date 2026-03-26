@@ -20,6 +20,9 @@ const userSchema = new mongoose.Schema({
     assistantImage:{
         type: String
     },
+    assistantVoice: {
+        type: String
+    },
     history:[
         {type: String}
     ]

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userDataContext } from '../context/userContext';
 import { MdKeyboardBackspace } from "react-icons/md";
@@ -9,12 +9,31 @@ function Customize2() {
     const { serverUrl, setUserData } = useContext(userDataContext)
     const [assistantName, setAssistantName] = useState(userData?.assistantName || "")
     const [loading, setLoading] = useState(false)
+    const [voices, setVoices] = useState([]);
+    const [assistantVoice, setAssistantVoice] = useState(userData?.assistantVoice || "");
+
+    useEffect(() => {
+        const loadVoices = () => {
+            const availableVoices = window.speechSynthesis.getVoices();
+            setVoices(availableVoices);
+            if (availableVoices.length > 0 && !assistantVoice && !userData?.assistantVoice) {
+                setAssistantVoice(availableVoices[0].name);
+            }
+        };
+
+        loadVoices();
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = loadVoices;
+        }
+    }, [assistantVoice, userData]);
+
     const navigate = useNavigate()
     const handleUpdateAssistant = async ()=>{
       setLoading(true)
       try{
           let formData = new FormData()
           formData.append("assistantName", assistantName)
+          formData.append("assistantVoice", assistantVoice)
           if(backendImage){
             formData.append("assistantImage", backendImage)
           }else{
@@ -36,7 +55,21 @@ function Customize2() {
       <MdKeyboardBackspace className = 'absolute top-[30px] left-[30px] text-white cursor-pointer w-[30px] h-[30px]' onClick={()=> navigate ("/customize")}/>
         <h1 className= 'text-white text-[30px] text-center'>Enter Your <span className = 'text-blue-200'>Assistant Name</span></h1>
     <input type = "text" placeholder = 'eg. Vihanga' className = 'w-full max-w-[600px] h-[60px] outline-none border-2 border-white bg-transparent text-white placeholder-gray-300 px-[20px] py-[10px] rounded-full text-[18px]'  required onChange={(e)=>setAssistantName(e.target.value)} value = {assistantName}/>
-    {assistantName && <button className = 'min-w-[300px] h-[50px] mt-5 text-black font-semibold cursor-pointer bg-white rounded-full text-[19px]' disabled = {loading} onClick={()=> { navigate("/customize2")
+    
+    <h1 className= 'text-white text-[30px] text-center mt-2'>Select <span className = 'text-blue-200'>Assistant Voice</span></h1>
+    <select 
+        className='w-full max-w-[600px] h-[60px] outline-none border-2 border-white bg-transparent text-white px-[20px] rounded-full text-[18px] appearance-none cursor-pointer'
+        value={assistantVoice} 
+        onChange={(e) => setAssistantVoice(e.target.value)}
+    >
+        {voices.map((voice, index) => (
+            <option key={index} value={voice.name} style={{color: 'black'}}>
+                {voice.name} ({voice.lang})
+            </option>
+        ))}
+    </select>
+
+    {assistantName && <button className = 'min-w-[300px] h-[50px] mt-5 text-black font-semibold cursor-pointer bg-white rounded-full text-[19px]' disabled = {loading} onClick={()=> { 
       handleUpdateAssistant()
     }
     

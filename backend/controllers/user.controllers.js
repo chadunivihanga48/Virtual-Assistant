@@ -17,7 +17,7 @@ export const getCurrentUser = async(req, res) => {
 
 export const updateAssistant = async(req, res)=> {
     try{
-        const {assistantName, imageUrl} = req.body
+        const {assistantName, imageUrl, assistantVoice} = req.body
         let assistantImage;
 
         if(req.file){
@@ -27,7 +27,7 @@ export const updateAssistant = async(req, res)=> {
         }
 
         const updatedUser = await User.findByIdAndUpdate(req.userId, {
-            assistantName, assistantImage
+            assistantName, assistantImage, assistantVoice
         }, {new: true}).select("-password")
         return res.status(200).json(updatedUser)
     }catch(error){

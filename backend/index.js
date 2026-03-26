@@ -5,11 +5,12 @@ import mongoose from 'mongoose';
 import cookieParser from "cookie-parser";
 import authRouter from './routes/auth.routes.js';
 import userRouter from './routes/user.routes.js';
+import chatRouter from './routes/chat.routes.js';
 import cors from 'cors'
 
 const app = express();
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175"],
   credentials: true
 }))
 const PORT = process.env.PORT || 8000;
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
+app.use("/api/chat", chatRouter);
 
 // MongoDB connection
 const mongoURL = process.env.MONGO_URL;
